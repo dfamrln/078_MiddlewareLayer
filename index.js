@@ -43,7 +43,7 @@ function successResponse(res, message, data, status = 200) {
         success: true,
         message,
         data,
-        error:
+        error: null,
     })
 }
 
