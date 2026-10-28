@@ -2,23 +2,15 @@ import express from 'express'
 import pg from 'pg'
 import Joi from 'joi'
 
-
 const app = express()
 const port = 3000
 const { Pool } = pg
-
-app.use(express.json())
-app.use(
-    express.urlencoded({
-        extended: true,
-    })
-)
 
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'mahasiswa',
-    password: '12345678',//sesuaikan dengan password database masing masing
+    password: '12345678',
     port: 5432,
 })
 
