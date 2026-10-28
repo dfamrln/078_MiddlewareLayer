@@ -1,6 +1,7 @@
 import express from 'express'
 import pg from 'pg'
 import Joi from 'joi'
+import { startTransition } from 'react'
 
 const app = express()
 const port = 3000
@@ -43,7 +44,7 @@ function successResponse(res, message, data, status = 200) {
         success: true,
         message,
         data,
-        error: null
+        error:
     })
 }
 
@@ -91,6 +92,28 @@ function validateBody(schema) {
         }
         
         req.body = value
+        next()
+    }
+}
+
+// Middleware untuk validasi parameter ID
+function validateParams(schema) {
+    return (req, res, next) => {
+        const { error, value } = schema.validate(req.params)
+
+        if (error) {
+            return errorResponse(
+                res,
+                'Validasi parameter gagal',
+                400,
+                error.details.map(item => ({
+                    field: item.path.join('.'),
+                    message: item.message,
+                }))
+            )
+        }
+
+        req.params = value
         next()
     }
 }
