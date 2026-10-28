@@ -1,7 +1,6 @@
 import express from 'express'
 import pg from 'pg'
 import Joi from 'joi'
-import { startTransition } from 'react'
 
 const app = express()
 const port = 3000
